@@ -119,7 +119,7 @@ public class MainController {
         model.addAttribute("valuesArray", addSentence);
         repo.save(new Records(textareaValues,addSentence,timeElapsed.toMillis()));// cümlenin birleşik hali ve süre eklenecek
 
-        return "alp.html";
+        return "index2.html";
     }
 
 }
