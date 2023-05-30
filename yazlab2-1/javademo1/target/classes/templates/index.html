@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>Text scanner</title>
+    <script type="text/javascript" src="jquery.js"></script>
+
+    <script type="text/javascript">
+	var i = 1;
+
+	function yeniekle(){
+
+		var eskiveri = $("#yenitextboxdivi").html();
+
+		$("#yenitextboxdivi").html(eskiveri + "<p>Yeni input "+i+" : <input type='text' name='yeniinput"+i+"' id='yeniinput"+i+"' /></p>");
+
+
+		$("#textboxsayisi").html('<input type="hidden" name="sayi" id="sayi" value="'+i+'" />');
+
+		i = i + 1;
+
+
+	}
+
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>  <style>
+            .sek{
+           width:400px;
+           height:120px;
+            }
+        </style>
+
+<style>
+            .butonSek{
+           width:400px;
+           height:120px;
+            }
+        </style>
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #BBD6B8;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#" style="color:#65647C">TEXT STITCHER</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+    </div>
+</nav>
+<body class="entire-webpage" style="background-color: #94AF9F;">
+
+<div class="container-fluid" >
+    <div class="container-sm"  >
+        <h1 style="color: #815B5B;">Text kıyaslama</h1>
+
+        <h4 style="color: #815B5B;">Lütfen Metin Sayısı Giriniz.</h4>
+
+        <form action="#" th:action="@{/firstPage}" method="post" th:field="Number">
+            <input type="number" field="*{kutuNumber}" id="tentacles" name="tentacles" value="2" min="2"max="20">
+        </form><p>
+        <button type="submit" class="btn btn-primary" onclick="deg();boxNumber();"  style="background-color: #DBE4C6;color: #191825;margin:5px;">SEÇ</button><p>
+        <label style="color: #815B5B;">Lütfen Kıyaslamak için metin giriniz. </label><p>
+        <div class="row">
+            <div class="col-8">
+
+
+                    <div class="row">
+                        <div class="col align-self-start"><p><form action="#" th:action="@{/firstPage}" method="post" th:object="${note}">
+                            <div id="ru">
+
+                            </div>
+     <script>
+       function deg()
+        {var list=document.querySelector("#ru");
+        var data = document.getElementById("tentacles").value;
+        while(list.firstChild)
+        {list.removeChild(list.firstChild);
+        }
+         var a="text";
+        var i = 0;
+        if(parseInt(data)<2)
+        {
+        alert ("LÜTFEN EN AZ İKİ METİN GİRİNİZ!!!!!");
+        }
+
+         else{
+            for (i = 0; i <parseInt(data); i++) {
+            var div=document.createElement("textarea");
+            div.setAttribute("id","text" + i.toString());
+            div.setAttribute("name","noteDetail");
+            div.setAttribute("field","*{noteDetail}");
+            div.classList="sek";
+            var item = document.createElement("li");
+            item.innerText = i;
+            list.appendChild(div);
+            }
+        }
+     }
+     </script>
+                        </form>
+                        </div>
+
+                        <div class="col align-self-center">
+                            <form action="#" th:action="@{/submitForm}" method="post">
+                                <input type="hidden" name="textareaValues" id="textareaValues">
+                                <button type="submit" class="btn btn-primary" onclick="lisYap()" style="background-color: #DBE4C6;color: #191825;padding: 10px 24px;margin:5px;">KIYASLA</button>
+
+                            </form>
+                        </div>
+                        <div class="col align-self-end">
+                        </div>
+                    </div>
+
+
+
+            </div>
+        <div class="col-4">
+            <ul class="list-group"  >
+                <li class="list-group-item" th:each="item:${textareaValues}">
+                    <input class="form-check-input me-1" th:text="${item}" type="checkbox" value="" aria-label="...">
+
+                </li>
+            </ul>
+        </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function lisYap()
+    {
+      var al = document.querySelectorAll('textarea[name="noteDetail"]');
+var textareaValues = [];
+
+for (var i = 0; i < al.length; i++) {
+  textareaValues.push(al[i].value);
+}
+document.getElementById("textareaValues").value = textareaValues;
+
+
+  document.forms[0].submit();
+
+    }
+</script>
+<script>
+function boxNumber() {
+  document.getElementById("demo").innerHTML = document.getElementById("tentacles").value;
+
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous">
+</script>
+
+</body>
+</html>
